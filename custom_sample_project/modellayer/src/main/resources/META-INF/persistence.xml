@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <persistence(скорее всего имя из заданного пространства имен)
+ (атрибут)xmlns= Обьявляется ссылка на библиотеку с именами которые будут использоваться в xml-файле.
+ Т.е. объявляется пространство имен.
+xmlns:xsi(префикс)= префиксы позволяют определить какой схеме принадлежит элемент документа. 
+Т.е. префикс, это что-то вроде ссылки на элемент. Вместо элемента пишется префикс.
+ Можно указывать префикс для элемента.</persistence>
+ (тэг persistence это область где будут работать пространства имен)
+ -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+                                 http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+<!-- Блок который задает настройки для единицы сохраняемости. Имеется так 
+		же название этого блока.(На это эмя будет создаваться EntityManager для работы 
+		с Entity) -->
+	<persistence-unit name="my-unit">
+	<!-- Основной конфигурационной единицей JPA является Persistence Unit – 
+			в нем описывается тип провайдера, который предоставляет “услуги” JPA а также 
+			список классов, за которые он “отвечает” – JPA-сущностей. В блоке <properties> 
+			описываются параметры доступа к базе данных, её тип, настройки логирования 
+			etc. -->
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<properties>
+		<!-- Диалект. Он переводит язык запросов в язык postgresql в моем случае. -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
+			<property name="hibernate.ejb.naming_strategy"
+				value="com.dk.mentoring.model.util.CustomImprovedNamingStrategy" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>

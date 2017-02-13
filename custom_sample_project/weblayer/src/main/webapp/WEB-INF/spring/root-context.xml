@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	    http://www.springframework.org/schema/context 
+	    http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	    http://www.springframework.org/schema/tx 
+	    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	    http://www.springframework.org/schema/jee
+	    http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	    http://www.springframework.org/schema/task
+	    http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- Включаем опцию использования конфигурационных аннотаций (@Annotation-based configuration) -->
+	<context:annotation-config />
+
+	<!-- Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service) -->
+	<context:component-scan base-package="com.dk.mentoring.service.impl" />
+	<context:component-scan base-package="com.dk.mentoring.dao.impl" />
+
+	<!-- Конфигурирование менеджера сущностей (EntityManager) осуществляется через объявление фабрики менеджера сущсностей (EntityManagerFactory) 
+		С ПОМОШЬЮ LocalContainerEntityManagerFactoryBean -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" p:dataSource-ref="dataSource" />
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Файл с настройками ресурсов для работы с данными (Data Access Resources) -->
+	<import resource="data.xml" />
+
+	<!-- Файл с настройками безопасности -->
+	<import resource="security.xml" />
+
+</beans>

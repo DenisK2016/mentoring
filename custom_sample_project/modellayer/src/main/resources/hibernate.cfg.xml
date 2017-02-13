@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE hibernate-configuration SYSTEM
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="show_sql">true</property>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="hibernate.jdbc.lob.non_contextual_creation">true</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
+
+		<mapping class="com.dk.mentoring.model.Dimension" />
+		<mapping class="com.dk.mentoring.model.Figure" />
+	</session-factory>
+</hibernate-configuration>
